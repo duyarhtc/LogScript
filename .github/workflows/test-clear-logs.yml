@@ -1,0 +1,20 @@
+name: Test clear_logs script
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Prepare logs and run script
+      run: |
+        chmod +x ./clear_logs.sh
+        mkdir -p logs
+        echo "ci test" > logs/test.log
+        ./clear_logs.sh
+        ls -la logs || true
+
